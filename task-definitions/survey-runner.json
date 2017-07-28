@@ -1,0 +1,63 @@
+[
+  {
+    "name": "survey-runner",
+    "image": "${CONTAINER_REGISTRY}/eq-survey-runner:${CONTAINER_TAG}",
+    "memoryReservation": 128,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 5000,
+        "hostPort": 0
+      }
+    ],
+    "environment": [
+      {
+        "name": "EQ_RABBITMQ_HOST",
+        "value": "${EQ_RABBITMQ_HOST}"
+      },
+      {
+        "name": "EQ_RABBITMQ_HOST_SECONDARY",
+        "value": "${EQ_RABBITMQ_HOST_SECONDARY}"
+      },
+      {
+        "name": "EQ_RABBITMQ_QUEUE_NAME",
+        "value": "${EQ_RABBITMQ_QUEUE_NAME}"
+      },
+      {
+        "name": "EQ_SERVER_SIDE_STORAGE_DATABASE_HOST",
+        "value": "${EQ_SERVER_SIDE_STORAGE_DATABASE_HOST}"
+      },
+      {
+        "name": "EQ_SERVER_SIDE_STORAGE_DATABASE_PORT",
+        "value": "${EQ_SERVER_SIDE_STORAGE_DATABASE_PORT}"
+      },
+      {
+        "name": "EQ_SERVER_SIDE_STORAGE_DATABASE_NAME",
+        "value": "${EQ_SERVER_SIDE_STORAGE_DATABASE_NAME}"
+      },
+      {
+        "name": "EQ_LOG_LEVEL",
+        "value": "${EQ_LOG_LEVEL}"
+      },
+      {
+        "name": "AWS_DEFAULT_REGION",
+        "value": "${AWS_DEFAULT_REGION}"
+      },
+      {
+        "name": "EQ_UA_ID",
+        "value": "${EQ_UA_ID}"
+      },
+      {
+        "name": "EQ_SECRETS_FILE",
+        "value": "${EQ_SECRETS_FILE}"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "eu-west-1",
+        "awslogs-group": "${LOG_GROUP}"
+      }
+    }
+  }
+]
