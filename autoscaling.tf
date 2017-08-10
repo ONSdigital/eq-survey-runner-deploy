@@ -47,6 +47,8 @@ resource "aws_appautoscaling_policy" "survey_runner_scale" {
 resource "aws_iam_role" "survey_runner_scaling" {
   name = "${var.env}_iam_for_survey_runner_scaling"
 
+  depends_on = ["data.aws_iam_policy_document.survey_runner_scaling"]
+
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
