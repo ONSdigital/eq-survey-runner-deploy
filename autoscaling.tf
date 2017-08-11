@@ -38,7 +38,10 @@ resource "aws_appautoscaling_policy" "survey_runner_scale" {
     scaling_adjustment          = -1
   }
 
-  depends_on = ["aws_appautoscaling_target.ecs_survey_runner_target"]
+  depends_on = [
+    "aws_appautoscaling_target.ecs_survey_runner_target",
+    "data.aws_iam_policy_document.survey_runner_scaling"
+  ]
 }
 
 resource "aws_iam_role" "survey_runner_scaling" {
