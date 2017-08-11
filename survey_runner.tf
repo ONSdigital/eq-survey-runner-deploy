@@ -2,7 +2,7 @@ resource "aws_alb_target_group" "survey_runner" {
   name     = "${var.env}-sr"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = "${var.vpc_id}"
+  vpc_id   = "${data.aws_alb.eq.vpc_id}"
 
   health_check = {
     healthy_threshold   = 2
@@ -33,11 +33,11 @@ resource "aws_alb_listener_rule" "survey_runner" {
 }
 
 resource "aws_route53_record" "survey_runner" {
-  zone_id = "${var.dns_zone_id}"
+  zone_id = "${data.aws_route53_zone.dns_zone.id}"
   name    = "${var.env}-surveys.${var.dns_zone_name}"
   type    = "CNAME"
   ttl     = "60"
-  records = ["${var.aws_alb_dns_name}"]
+  records = ["${data.aws_alb.eq.dns_name}"]
 }
 
 data "template_file" "survey_runner" {

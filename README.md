@@ -8,15 +8,12 @@ To deploy Survey Runner add the following module to your terraform scripts
 
 ```
 module "survey-runner" {
-  source                  = "github.com/ONSdigital/eq-survey-runner-deploy?ref=runner-deploy-terraform"
+  source                  = "github.com/ONSdigital/eq-survey-runner-deploy"
   env                     = "${var.env}"
   aws_access_key          = "${var.aws_access_key}"
   aws_secret_key          = "${var.aws_secret_key}"
-  dns_zone_id             = "${var.dns_zone_id}"
   dns_zone_name           = "${var.dns_zone_name}"
-  vpc_id                  = "${module.survey-runner-vpc.vpc_id}"
   ecs_cluster_name        = "${module.survey-runner-ecs.ecs_cluster_name}"
-  aws_alb_dns_name        = "${module.survey-runner-ecs.aws_alb_dns_name}"
   aws_alb_listener_arn    = "${module.survey-runner-ecs.aws_alb_listener_arn}"
   s3_secrets_bucket       = "${var.survey_runner_s3_secrets_bucket}"
   database_host           = "${module.survey-runner-database.database_address}"
