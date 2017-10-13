@@ -50,6 +50,10 @@
       {
         "name": "EQ_SECRETS_FILE",
         "value": "${EQ_SECRETS_FILE}"
+      },
+      {
+        "name": "RESPONDENT_ACCOUNT_URL",
+        "value": "${RESPONDENT_ACCOUNT_URL}"
       }
     ],
     "logConfiguration": {

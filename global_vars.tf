@@ -95,3 +95,8 @@ variable "message_queue_name" {
   description = "RabbitMQ submission queue name"
   default     = "submit_q"
 }
+
+variable "respondent_account_url" {
+  description = "The url for the respondent log in that will be used to navigate to preprod"
+  default     = "https://survey.ons.gov.uk/"
+}
