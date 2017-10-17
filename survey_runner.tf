@@ -57,6 +57,7 @@ data "template_file" "survey_runner" {
     LOG_GROUP                            = "${aws_cloudwatch_log_group.survey_runner.name}"
     CONTAINER_REGISTRY                   = "${var.docker_registry}"
     CONTAINER_TAG                        = "${var.survey_runner_tag}"
+    RESPONDENT_ACCOUNT_URL               = "${var.respondent_account_url}"
   }
 }
 
