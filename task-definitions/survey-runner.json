@@ -48,8 +48,16 @@
         "value": "${EQ_UA_ID}"
       },
       {
+        "name": "SECRETS_S3_BUCKET",
+        "value": "${SECRETS_S3_BUCKET}"
+      },
+      {
         "name": "EQ_SECRETS_FILE",
         "value": "${EQ_SECRETS_FILE}"
+      },
+      {
+        "name": "EQ_KEYS_FILE",
+        "value": "${EQ_KEYS_FILE}"
       },
       {
         "name": "RESPONDENT_ACCOUNT_URL",
