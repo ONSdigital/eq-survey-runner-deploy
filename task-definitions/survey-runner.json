@@ -52,6 +52,10 @@
         "value": "${EQ_SECRETS_FILE}"
       },
       {
+        "name": "EQ_KEYS_FILE",
+        "value": "${EQ_KEYS_FILE}"
+      },
+      {
         "name": "RESPONDENT_ACCOUNT_URL",
         "value": "${RESPONDENT_ACCOUNT_URL}"
       }

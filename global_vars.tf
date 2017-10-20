@@ -65,6 +65,11 @@ variable "secrets_file_name" {
   default     = "secrets.yml"
 }
 
+variable "keys_file_name" {
+  description = "The filename of the file containing the application keys"
+  default     = "keys.yml"
+}
+
 variable "google_analytics_code" {
   description = "The google analytics UA Code"
 }

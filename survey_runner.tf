@@ -53,6 +53,7 @@ data "template_file" "survey_runner" {
     EQ_LOG_LEVEL                         = "${var.eq_log_level}"
     EQ_UA_ID                             = "${var.google_analytics_code}"
     EQ_SECRETS_FILE                      = "${var.secrets_file_name}"
+    EQ_KEYS_FILE                         = "${var.keys_file_name}"
     AWS_DEFAULT_REGION                   = "${var.aws_default_region}"
     LOG_GROUP                            = "${aws_cloudwatch_log_group.survey_runner.name}"
     CONTAINER_REGISTRY                   = "${var.docker_registry}"
