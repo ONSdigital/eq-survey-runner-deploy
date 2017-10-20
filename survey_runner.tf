@@ -168,8 +168,7 @@ data "aws_iam_policy_document" "survey_runner_task" {
     ]
 
     "resources" = [
-      "arn:aws:s3:::${var.s3_secrets_bucket}",
-      "arn:aws:s3:::${var.s3_secrets_bucket}/${var.secrets_file_name}",
+      "arn:aws:s3:::${var.s3_secrets_bucket}*"
     ]
   }
 }
