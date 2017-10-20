@@ -52,6 +52,7 @@ data "template_file" "survey_runner" {
     EQ_SERVER_SIDE_STORAGE_DATABASE_NAME = "${var.database_name}"
     EQ_LOG_LEVEL                         = "${var.eq_log_level}"
     EQ_UA_ID                             = "${var.google_analytics_code}"
+    SECRETS_S3_BUCKET                    = "${var.s3_secrets_bucket}"
     EQ_SECRETS_FILE                      = "${var.secrets_file_name}"
     EQ_KEYS_FILE                         = "${var.keys_file_name}"
     AWS_DEFAULT_REGION                   = "${var.aws_default_region}"
