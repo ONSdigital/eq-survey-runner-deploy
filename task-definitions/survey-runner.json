@@ -62,6 +62,10 @@
       {
         "name": "RESPONDENT_ACCOUNT_URL",
         "value": "${RESPONDENT_ACCOUNT_URL}"
+      },
+      {
+        "name": "EQ_ENVIRONMENT_PREFIX",
+        "value": "${EQ_ENVIRONMENT_PREFIX}"
       }
     ],
     "logConfiguration": {

@@ -60,6 +60,7 @@ data "template_file" "survey_runner" {
     CONTAINER_REGISTRY                   = "${var.docker_registry}"
     CONTAINER_TAG                        = "${var.survey_runner_tag}"
     RESPONDENT_ACCOUNT_URL               = "${var.respondent_account_url}"
+    EQ_ENVIRONMENT_PREFIX                = "${var.eq_environment_prefix}"
   }
 }
 
@@ -169,6 +170,19 @@ data "aws_iam_policy_document" "survey_runner_task" {
 
     "resources" = [
       "arn:aws:s3:::${var.s3_secrets_bucket}*"
+    ]
+  }
+
+  "statement" = {
+    "effect" = "Allow"
+
+    "actions" = [
+      "dynamodb:PutItem",
+      "dynamodb:GetItem",
+    ]
+
+    "resources" = [
+      "arn:aws:dynamodb:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/${var.eq_environment_prefix}-submitted-responses"
     ]
   }
 }
