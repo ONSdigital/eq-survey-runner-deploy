@@ -105,3 +105,7 @@ variable "respondent_account_url" {
   description = "The url for the respondent log in that will be used to navigate to preprod"
   default     = "https://survey.ons.gov.uk/"
 }
+
+variable "eq_environment_prefix" {
+  description = "Environment prefix, eg dev, preprod or prod"
+}
