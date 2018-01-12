@@ -106,6 +106,6 @@ variable "respondent_account_url" {
   default     = "https://survey.ons.gov.uk/"
 }
 
-variable "eq_environment_prefix" {
-  description = "Environment prefix, eg dev, preprod or prod"
+variable "submitted_responses_table_name" {
+  description = "Table name of table used for storing Submitted Responses"
 }
