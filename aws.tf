@@ -25,9 +25,9 @@ data "aws_alb_listener" "eq" {
 }
 
 data "aws_alb" "eq" {
-  arn  = "${data.aws_alb_listener.eq.load_balancer_arn}"
+  arn = "${data.aws_alb_listener.eq.load_balancer_arn}"
 }
 
 data "aws_route53_zone" "dns_zone" {
-  name         = "${var.dns_zone_name}"
+  name = "${var.dns_zone_name}"
 }

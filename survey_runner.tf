@@ -173,7 +173,7 @@ data "aws_iam_policy_document" "survey_runner_task" {
     ]
 
     "resources" = [
-      "arn:aws:s3:::${var.s3_secrets_bucket}*"
+      "arn:aws:s3:::${var.s3_secrets_bucket}*",
     ]
   }
 
@@ -186,7 +186,7 @@ data "aws_iam_policy_document" "survey_runner_task" {
     ]
 
     "resources" = [
-      "arn:aws:dynamodb:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/${var.submitted_responses_table_name}"
+      "arn:aws:dynamodb:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/${var.submitted_responses_table_name}",
     ]
   }
 }

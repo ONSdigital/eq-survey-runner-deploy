@@ -2,9 +2,13 @@ resource "aws_appautoscaling_target" "ecs_survey_runner_target" {
   min_capacity       = "${var.survey_runner_min_tasks}"
   max_capacity       = "${var.survey_runner_max_tasks}"
   resource_id        = "service/${data.aws_ecs_cluster.ecs-cluster.cluster_name}/${aws_ecs_service.survey_runner.name}"
-  role_arn           = "${aws_iam_role.survey_runner_scaling.arn}"
+  role_arn           = "${data.aws_iam_role.aws_ecs_auto_scaling.arn}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
+}
+
+data "aws_iam_role" "aws_ecs_auto_scaling" {
+  role_name = "AWSServiceRoleForApplicationAutoScaling_ECSService"
 }
 
 resource "aws_appautoscaling_policy" "survey_runner_scale" {
@@ -40,51 +44,5 @@ resource "aws_appautoscaling_policy" "survey_runner_scale" {
 
   depends_on = [
     "aws_appautoscaling_target.ecs_survey_runner_target",
-    "data.aws_iam_policy_document.survey_runner_scaling"
   ]
-}
-
-resource "aws_iam_role" "survey_runner_scaling" {
-  name = "${var.env}_iam_for_survey_runner_scaling"
-
-  depends_on = ["data.aws_iam_policy_document.survey_runner_scaling"]
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": ["application-autoscaling.amazonaws.com"]
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
-}
-
-data "aws_iam_policy_document" "survey_runner_scaling" {
-  "statement" = {
-    "effect" = "Allow"
-
-    "actions" = [
-      "application-autoscaling:RegisterScalableTarget",
-      "ecs:UpdateService",
-      "cloudwatch:DescribeAlarms",
-      "ecs:DescribeServices",
-    ]
-
-    "resources" = [
-      "*",
-    ]
-  }
-}
-
-resource "aws_iam_role_policy" "survey_runner_scaling" {
-  name   = "${var.env}_iam_for_survey_runner_scaling"
-  role   = "${aws_iam_role.survey_runner_scaling.id}"
-  policy = "${data.aws_iam_policy_document.survey_runner_scaling.json}"
 }
