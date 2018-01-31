@@ -61,6 +61,10 @@ data "template_file" "survey_runner" {
     CONTAINER_TAG                        = "${var.survey_runner_tag}"
     RESPONDENT_ACCOUNT_URL               = "${var.respondent_account_url}"
     EQ_SUBMITTED_RESPONSES_TABLE_NAME    = "${var.submitted_responses_table_name}"
+    EQ_NEW_RELIC_ENABLED                 = "${var.new_relic_enabled}"
+    NEW_RELIC_LICENSE_KEY                = "${var.new_relic_licence_key}"
+    NEW_RELIC_APP_NAME                   = "${var.new_relic_app_name}"
+
   }
 }
 
