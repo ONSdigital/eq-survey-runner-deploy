@@ -109,3 +109,19 @@ variable "respondent_account_url" {
 variable "submitted_responses_table_name" {
   description = "Table name of table used for storing Submitted Responses"
 }
+
+# New Relic
+variable "new_relic_enabled" {
+  description = "Enable NewRelic monitoring"
+  default     = false
+}
+
+variable "new_relic_app_name" {
+  description = "NewRelic App Name"
+  default     = "Survey Runner"
+}
+
+variable "new_relic_licence_key" {
+  description = "NewRelic Licence Key"
+  default     = ""
+}
