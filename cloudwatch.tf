@@ -6,7 +6,7 @@ resource "aws_cloudwatch_metric_alarm" "survey_runner_high_cpu" {
   namespace           = "AWS/ECS"
   period              = "60"
   statistic           = "Average"
-  threshold           = "60"
+  threshold           = "40"
 
   dimensions {
     ClusterName = "${data.aws_ecs_cluster.ecs-cluster.cluster_name}"
