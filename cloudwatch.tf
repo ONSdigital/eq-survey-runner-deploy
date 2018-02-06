@@ -46,7 +46,7 @@ resource "aws_cloudwatch_metric_alarm" "no_remaining_database_connections" {
   statistic           = "Maximum"
   threshold           = "1"
   alarm_description   = "The number of database connections has been exhausted"
-  alarm_actions       = ["arn:aws:sns:eu-west-1:${data.aws_caller_identity.current.account_id}:${var.env}-slack-alert"]
+  alarm_actions       = ["${var.slack_alert_sns_arn}"]
 }
 
 resource "aws_cloudwatch_log_metric_filter" "no_database_connections_remaining" {
@@ -61,26 +61,39 @@ resource "aws_cloudwatch_log_metric_filter" "no_database_connections_remaining" 
   }
 }
 
-resource "aws_cloudwatch_log_metric_filter" "jwt_kid_in_use" {
-  name           = "jwt_kids_in_use"
-  pattern        = "{$.event = \"Decoding JWT\"}"
-  log_group_name = "${aws_cloudwatch_log_group.survey_runner.name}"
+data "aws_alb" "eq_alb" {
+  arn  = "${var.aws_alb_arn}"
+}
 
-  metric_transformation {
-    name      = "JWT_KID"
-    namespace = "${var.env}_SurveyRunner"
-    value     = "$.kid"
+resource "aws_cloudwatch_metric_alarm" "5xx_errors" {
+  alarm_name = "${var.env}-survey-runner-5xx-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods = "1"
+  metric_name = "HTTPCode_Target_5XX_Count"
+  namespace = "AWS/ApplicationELB"
+  period = "60"
+  statistic = "Sum"
+  threshold = "1"
+  alarm_description = "There have been at least 1 5xx errors in the past 60 seconds"
+  alarm_actions       = ["${var.slack_alert_sns_arn}"]
+  dimensions {
+    TargetGroup = "${aws_alb_target_group.survey_runner.arn_suffix}"
+    LoadBalancer = "${data.aws_alb.eq_alb.arn_suffix}"
   }
 }
 
-resource "aws_cloudwatch_log_metric_filter" "jwe_kid_in_use" {
-  name           = "jwe_kids_in_use"
-  pattern        = "{$.event = \"Decrypting JWE\"}"
-  log_group_name = "${aws_cloudwatch_log_group.survey_runner.name}"
-
-  metric_transformation {
-    name      = "JWE_KID"
-    namespace = "${var.env}_SurveyRunner"
-    value     = "$.kid"
+resource "aws_cloudwatch_metric_alarm" "4xx_errors" {
+  alarm_name = "${var.env}-survey-runner-4xx-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods = "2"
+  metric_name = "HTTPCode_Target_4XX_Count"
+  namespace = "AWS/ApplicationELB"
+  period = "60"
+  statistic = "Sum"
+  threshold = "100"
+  alarm_description = "There have been at least 100 4xx errors in the past 120 seconds"
+  dimensions {
+    TargetGroup = "${aws_alb_target_group.survey_runner.arn_suffix}"
+    LoadBalancer = "${data.aws_alb.eq_alb.arn_suffix}"
   }
 }
