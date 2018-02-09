@@ -113,7 +113,7 @@ variable "submitted_responses_table_name" {
 # New Relic
 variable "new_relic_enabled" {
   description = "Enable NewRelic monitoring"
-  default     = false
+  default     = "False"
 }
 
 variable "new_relic_app_name" {
