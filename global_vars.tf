@@ -15,7 +15,15 @@ variable "ecs_cluster_name" {
 }
 
 variable "aws_alb_listener_arn" {
+  description = "The ARN of the survey runner ALB Listener"
+}
+
+variable "aws_alb_arn" {
   description = "The ARN of the survey runner ALB"
+}
+
+variable "slack_alert_sns_arn" {
+  description = "The ARN of sns topic for slack alerts"
 }
 
 # DNS
