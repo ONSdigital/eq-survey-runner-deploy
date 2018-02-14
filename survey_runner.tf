@@ -35,9 +35,13 @@ resource "aws_alb_listener_rule" "survey_runner" {
 resource "aws_route53_record" "survey_runner" {
   zone_id = "${data.aws_route53_zone.dns_zone.id}"
   name    = "${var.env}-surveys.${var.dns_zone_name}"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["${data.aws_alb.eq.dns_name}"]
+  type    = "A"
+
+  alias {
+    name                   = "${data.aws_alb.eq.dns_name}"
+    zone_id                = "${data.aws_alb.eq.zone_id}"
+    evaluate_target_health = false
+  }
 }
 
 data "template_file" "survey_runner" {
@@ -64,7 +68,6 @@ data "template_file" "survey_runner" {
     EQ_NEW_RELIC_ENABLED                 = "${var.new_relic_enabled}"
     NEW_RELIC_LICENSE_KEY                = "${var.new_relic_licence_key}"
     NEW_RELIC_APP_NAME                   = "${var.new_relic_app_name}"
-
   }
 }
 
