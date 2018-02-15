@@ -54,6 +54,11 @@ variable "survey_runner_min_tasks" {
   default     = "3"
 }
 
+variable "survey_runner_static_min_tasks" {
+  description = "The minimum number of Survey Runner Static tasks to run"
+  default     = "2"
+}
+
 variable "survey_runner_max_tasks" {
   description = "The Maximum number of Survey Runner tasks to run"
   default     = "50"
