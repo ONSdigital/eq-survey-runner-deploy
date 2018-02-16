@@ -61,7 +61,7 @@ resource "aws_ecs_service" "survey_runner_static" {
   name            = "${var.env}-survey-runner-static"
   cluster         = "${data.aws_ecs_cluster.ecs-cluster.id}"
   task_definition = "${aws_ecs_task_definition.survey_runner_static.family}"
-  desired_count   = 1
+  desired_count   = "${var.survey_runner_static_min_tasks}"
   iam_role        = "${aws_iam_role.survey_runner_static.arn}"
 
   placement_strategy {
@@ -76,7 +76,7 @@ resource "aws_ecs_service" "survey_runner_static" {
   }
 
   lifecycle {
-    ignore_changes = ["placement_strategy"]
+    ignore_changes = ["placement_strategy", "desired_count"]
   }
 }
 
