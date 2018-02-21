@@ -2,7 +2,7 @@ resource "aws_alb_target_group" "survey_runner" {
   name     = "${var.env}-sr"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = "${data.aws_alb.eq.vpc_id}"
+  vpc_id   = "${var.vpc_id}"
 
   health_check = {
     healthy_threshold   = 2
@@ -38,8 +38,8 @@ resource "aws_route53_record" "survey_runner" {
   type    = "A"
 
   alias {
-    name                   = "${data.aws_alb.eq.dns_name}"
-    zone_id                = "${data.aws_alb.eq.zone_id}"
+    name                   = "${data.aws_lb.eq.dns_name}"
+    zone_id                = "${data.aws_lb.eq.zone_id}"
     evaluate_target_health = false
   }
 }
